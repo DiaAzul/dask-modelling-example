@@ -12,7 +12,18 @@ This example project provides an implementation of a simple forecasting model us
 
 ## Case study example
 
-The model case study 
+The model case study.
+
+```mermaid
+Acute hospital data -> acute forecast
+Population growth -> acute forecast
+Community data -> community forecast
+Population growth -> community forecast
+acute forecast -> business transform
+community forecast -> business transform
+assumption -> business transform
+business transform -> output
+```
 
 ```python
 @delayed
