@@ -11,7 +11,7 @@ class forecast_base:
 
         + Column containing age band description is age_band in both tables.
         + Historic activity is for year 2020.
-        + Historic activity is in 'activty'
+        + Historic activity is in 'activity'
         + Forecast years are sequential columns from year after historic activity year (2021, 2022, ...).
 
         Args:

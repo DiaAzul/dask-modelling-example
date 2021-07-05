@@ -50,17 +50,17 @@ class business_transform_base:
 
         # Calculate new activity after redistributing activity between acute and community hospitals.
         # percentage_shift_to_community from year 2025 onwards.
-        # Note: Convert year from string to datatime object by selecting year as dataFrame (double square brackets)
-        # then converting dataFrame to datetime and then selecting year as series. To avoid type hinting errors.
+        df["date"] = pd.to_datetime(df["year"].apply(lambda x: f"{x}-01-01"), infer_datetime_format=True)
+        df["include"] = (df["date"] >= "2025-01-01").astype("int")
         df["activity_shift_to_community"] = (
             df["acute_activity"] 
             * df["percentage_shift_to_community"]
-            * (pd.to_datetime(df[["year"]], format='%Y')["year"] >= pd.Timestamp("2025-01-01"))  
+            * df["include"]
         )
         df["revised_acute_activity"] = df["acute_activity"] - df["activity_shift_to_community"]
         df["revised_community_activity"] = df["community_activity"] + df["activity_shift_to_community"]
 
-        # Remove intermediate columns to tidey up returned table.
-        df.drop(columns="percentage_shift_to_community", inplace=True, axis=1)
+        # Remove intermediate columns to tidy up returned table.
+        df.drop(columns=["percentage_shift_to_community", "date", "include"], inplace=True, axis=1)
 
         return df
