@@ -15,14 +15,15 @@ This example project provides an implementation of a simple forecasting model us
 The model case study.
 
 ```mermaid
-Acute hospital data -> acute forecast
-Population growth -> acute forecast
-Community data -> community forecast
-Population growth -> community forecast
-acute forecast -> business transform
-community forecast -> business transform
-assumption -> business transform
-business transform -> output
+graph LR;
+    Acute_hospital_data --> acute_forecast;
+    Population_growth --> acute_forecast;
+    Community_data --> community_forecast;
+    Population_growth --> community_forecast;
+    acute_forecast --> business_transform;
+    community_forecast --> business_transform;
+    assumption --> business_transform;
+    business_transform --> output;
 ```
 
 ```python
