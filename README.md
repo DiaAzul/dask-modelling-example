@@ -1,4 +1,4 @@
-# Healthcare systems modelling using Dask/Pandas
+# Healthcare systems modelling using Python, Pandas and Dask
 
 Forecasting activity and finances is a tasks frequently undertaken using spreadsheets and, for simple models, this works well. However, as models become more complex developing and maintaining models in spreadsheets becomes harder - particularly when the models have more than two dimensions such as age, sex, disease group, hospital, region, year, and so on. For larger models alternative approaches are required, in this case the proposed approach uses Python, Pandas DataFrames and Dask. The benefits of this approach are:
 
@@ -10,21 +10,13 @@ Forecasting activity and finances is a tasks frequently undertaken using spreads
 
 This example project provides an implementation of a simple forecasting model using Dask and Pandas DataFrames. The model is greatly simplified for demonstration purposes, however, covers the main principles of importing data, performing calculations and outputting the results.
 
-## Case study example
+## Case study example - healthcare system reconfiguration
 
-The model case study.
+The case study is loosely based upon a real world example in which activity is moved from acute hospitals into the community. Changes in technology and working practice reduces the need for patients to visit or stay in the hospital leading to a reduction in cost for the health and care system.
 
-```mermaid
-graph LR;
-    Acute_hospital_data --> acute_forecast;
-    Population_growth --> acute_forecast;
-    Community_data --> community_forecast;
-    Population_growth --> community_forecast;
-    acute_forecast --> business_transform;
-    community_forecast --> business_transform;
-    assumption --> business_transform;
-    business_transform --> output;
-```
+![model structure](assets/model_structure.png)
+
+## Code examples
 
 ```python
 @delayed
