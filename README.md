@@ -1,6 +1,6 @@
 # Healthcare systems modelling using Python, Pandas and Dask
 
-Forecasting activity and finances is a tasks frequently undertaken using spreadsheets and, for simple models, this works well. However, as models become more complex, developing and maintaining models in spreadsheets becomes harder - particularly when the models have more than two dimensions such as age, sex, disease group, hospital, region, year, and so on. For larger models alternative approaches are required, in this case the proposed approach uses [Python](https://www.python.org/), [Pandas](https://pandas.pydata.org/) and [Dask](https://dask.org/). The benefits of this approach are:
+Activity and finance modelling is a task frequently undertaken using spreadsheets and, for simple models, this works well. However, as models become more complex developing and maintaining models in spreadsheets becomes harder - particularly when the models have more than two dimensions such as age, sex, disease group, hospital, region, year, and so on. For larger models alternative approaches are required, in this case the proposed approach uses [Python](https://www.python.org/), [Pandas](https://pandas.pydata.org/) and [Dask](https://dask.org/). The benefits of this approach are:
 
 + **Separation of code, data and presentation** - Separating the modelling into the three domains provides greater flexibility in the development of the model and makes extending the model to additional dimensions or changing data easier.
 
@@ -34,7 +34,21 @@ Historic data for the base year (2020) is contained within two files (acute_hosp
 
 ## Code examples
 
-The key 
+The approach to modelling is founded on the following principles:
+
++ All input data and assumption are kept external to the model either in files such as (CSV, YAML) or databases. In this example data is stored in the Import_data folder as CSV files.
+
++ The unit of data is a Pandas DataFrame. All data within the model is held and processed using Pandas.
+
++ Units of data are encapsulated within a class. The class has an attribute `data` which provides access to the data. The data is a [Dask Delayed](https://docs.dask.org/en/latest/delayed.html) object.
+
++ Input data and assumptions are loaded into classes which expose that data as a `Dask Delayed` object on the `data` attribute.
+
++ Functions which transform data are implemented as `Dask Delayed` functions within a class. These accept `Dask Delayed Pandas dataFrames` as inputs and expose the result on the `data` attribute as a `Dask Delayed` object. See example code below.
+
++ Once all the data input and functions classes are defined them graph can be executed using the `.compute()` method on the output `data` attribute. This executes the graph and returns the output of the final function.
+
++ A visualisation of the model is available using the `.visualize()` method on the output `data` attribute. Note: this requires both the GraphViz Python library and the GraphViz system library, see [Dask - Visualise Task Graphs](https://docs.dask.org/en/latest/graphviz.html).
 
 ### Create functions on the execution graph
 
