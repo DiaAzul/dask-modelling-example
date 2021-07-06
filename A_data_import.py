@@ -5,7 +5,7 @@ Import the following files from the import folder.
 
 + Assumptions
 + Population forecast
-+ Acute Hosptial activity
++ Acute Hospital activity
 + Community activity
 """
 
@@ -50,7 +50,7 @@ class acute_data(loader):
     dimensions:
 
     + Year
-    + Hosptial name
+    + Hospital name
     + Service line
     + Age band
     + Sex

@@ -1,7 +1,6 @@
 import os
 import pandas as pd
 from dask import delayed
-from typing import List
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = ROOT_DIR + "/Import_data/"

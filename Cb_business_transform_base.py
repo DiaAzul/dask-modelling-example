@@ -50,7 +50,7 @@ class business_transform_base:
 
         # Calculate new activity after redistributing activity between acute and community hospitals.
         # percentage_shift_to_community from year 2025 onwards.
-        df["date"] = pd.to_datetime(df["year"].apply(lambda x: f"{x}-01-01"), infer_datetime_format=True)
+        df["date"] = pd.to_datetime(df["year"].apply(lambda x: f"{x}-01-01"), infer_datetime_format=True)  # type:ignore
         df["include"] = (df["date"] >= "2025-01-01").astype("int")
         df["activity_shift_to_community"] = (
             df["acute_activity"] 
