@@ -76,7 +76,7 @@ class forecast_base:
         population_growth: pd.DataFrame
     ) -> pd.DataFrame:
 
-    # Code implementing the code
+    # Code implementing the function
 
     return df
 
