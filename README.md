@@ -32,6 +32,8 @@ The model structure is shown in the following diagram:
 
 Historic data for the base year (2020) is contained within two files (acute_hospital_data, community_data) each file provides activity for each hospital, region, service line, sex and five-year age band. This activity is forecast forward using population_growth data (year, sex, age band) to produce an acute_forecast and community_forecast. The assumption for the amount of activity that can be transferred to the community is read from the assumptions file and used to produce a post transformation forecast (business_transform).
 
+Example output from the case study example is included in `Healthcare system model.ipynb`
+
 ## Code examples
 
 The approach to modelling is founded on the following principles:
@@ -52,6 +54,18 @@ The approach to modelling is founded on the following principles:
 
 ### Create functions on the execution graph
 
+Dask delayed function are implemented in the code as shown in the example below.
+
++ The implementation of the function is implemented within a base class as a delayed method. Implementing the code in a class allows that class to be inherited into multiple other classes which define the execution graph and support the DRY (Don't Repeat Yourself) principle. An example can be seen in the data import where a loader is defined as the base class and inherited by multiple implementations to load each individual input data file. The base class in the code snippet below is forecast\_base and the private method implementing the function is \_forecast\_calculation.
+
++ Functions are added to the execution graph by inheriting the base class into the implementing class and calling the implementing function as show in the acute\_forecast class below.
+
++ The parameters of the function are the outputs of previous delayed functions. This creates the links in the execution graph.
+
++ The output of the function is exposed on the data attribute of the class. This is consumed by later nodes by creating an implementation of the class e.g. acute_forecast().
+
++ The name of the node in the execution graph visualisation is the name of the underlying implementing method in the base class. When the base class is inherited by multiple implementing classes then the same name will appear for multiple nodes. The name of the implementing node can be specified by adding dask\_key\_name as parameter. Note: The name must be unique across all Dask nodes in the execution graph, and must not match a Python object name (class or method name).
+
 ```python
 # Implementation of the function applied to the inputs
 class forecast_base:
@@ -62,7 +76,11 @@ class forecast_base:
         population_growth: pd.DataFrame
     ) -> pd.DataFrame:
 
-# Function added to the execution graph
+    # Code implementing the code
+
+    return df
+
+# Class exposing the results of the function on the data attribute
 class acute_forecast(forecast_base):
     def __init__(self) -> None:
         self.data = self._forecast_calculation(
@@ -75,16 +93,16 @@ class acute_forecast(forecast_base):
 
 ### Compute the execution graph
 
-```python
-from C_business_transform import business_transform
+To execute the model create an instance of the output node class and run the compute method on the data attribute.
 
+```python
 output = business_transform().data.compute()
 ```
 
 ### Visualise the execution graph
 
-```python
-from C_business_transform import business_transform
+To visualise the graph create an instance of the output node class and run the visualize method on the data attribute.
 
-business_transform().data.visualize()
+```python
+png = business_transform().data.visualize()
 ```
