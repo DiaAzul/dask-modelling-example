@@ -1,3 +1,7 @@
+# Ignore specific files from the example code
+mydask.png
+results.csv
+
 # Visual Studio Code
 .vscode
 

@@ -29,7 +29,8 @@ class assumptions_data(loader):
 
 class population_data(loader):
     """Forecast for the annual rate of population growth by five year age band.
-    Population forecasts are mid-year estimates by sex and 5-year age band (up to 85+).
+
+    Population forecasts are mid-year estimates by 5-year age band (up to 85+).
 
     Inherits from base class loader
 

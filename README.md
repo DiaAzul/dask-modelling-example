@@ -1,4 +1,4 @@
-# Healthcare systems modelling using Python, Pandas and Dask
+# Healthcare system modelling using Python, Pandas and Dask
 
 Activity and finance modelling is a task frequently undertaken using spreadsheets and, for simple models, this works well. However, as models become more complex developing and maintaining models in spreadsheets becomes harder - particularly when the models have more than two dimensions such as age, sex, disease group, hospital, region, year, and so on. For larger models alternative approaches are required, in this case the proposed approach uses [Python](https://www.python.org/), [Pandas](https://pandas.pydata.org/) and [Dask](https://dask.org/). The benefits of this approach are:
 

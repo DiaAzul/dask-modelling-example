@@ -1,0 +1,12 @@
+name: daskExampleModel
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - dask
+  - python-graphviz
+  - jupyter
+  - pandas
+  - pip
+  - plotly
+  - python=3.7
