@@ -5,8 +5,8 @@ channels:
 dependencies:
   - dask
   - python-graphviz
-  - jupyter
+  - notebook
   - pandas
   - pip
   - plotly
-  - python=3.7
+  - python
