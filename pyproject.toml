@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "dask-modelling-example"
+version = "0.1.0"
+description = "Healthcare business modelling using DASK"
+authors = ["David Plummer <28156158+DiaAzul@users.noreply.github.com>"]
+license = "Apache-2"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+ipykernel = "^6.9.2"
+dask = "^2022.3.0"
+notebook = "^6.4.10"
+pandas = "^1.4.1"
+plotly = "^5.6.0"
+graphviz = "^0.19.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
