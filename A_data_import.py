@@ -1,3 +1,5 @@
+from dask.delayed import Delayed
+
 from Ab_data_loader import loader
 
 """
@@ -19,9 +21,10 @@ class assumptions_data(loader):
         data (pd.DataFrame): Forecast of population by locality, age and service line.
     """
 
-    def __init__(self):
+    @property
+    def data(self) -> Delayed:
         """Assumptions."""
-        self.data = self.delayed_load_data(
+        return self.delayed_load_data(
             file_name="assumptions.csv",
             dask_key_name="Assumptions",
         )
@@ -38,9 +41,10 @@ class population_data(loader):
         data (pd.DataFrame): Forecast of population by locality, age and service line.
     """
 
-    def __init__(self):
+    @property
+    def data(self) -> Delayed:
         """Population growth."""
-        self.data = self.delayed_load_data_na0(
+        return self.delayed_load_data_na0(
             file_name="population_growth.csv",
             dask_key_name="Population_growth_data",
         )
@@ -63,9 +67,10 @@ class acute_data(loader):
         data (pd.DataFrame): Forecast of population by locality, age and service line.
     """
 
-    def __init__(self):
+    @property
+    def data(self) -> Delayed:
         """Acute hospital activity."""
-        self.data = self.delayed_load_data_na0(
+        return self.delayed_load_data_na0(
             file_name="acute_hospital_activity.csv",
             dask_key_name="Acute_hospital_data",
         )
@@ -88,9 +93,10 @@ class community_data(loader):
         data (pd.DataFrame): Forecast of population by locality, age and service line.
     """
 
-    def __init__(self):
+    @property
+    def data(self) -> Delayed:
         """Community activity."""
-        self.data = self.delayed_load_data_na0(
+        return self.delayed_load_data_na0(
             file_name="community_activity.csv",
             dask_key_name="Community_data",
         )

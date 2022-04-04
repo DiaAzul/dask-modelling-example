@@ -36,6 +36,12 @@ Example output from the case study example is included in `Healthcare system mod
 
 ## Code examples
 
+The dependencies for this project are included in:
+
++ `environment.yml` file for Conda
++ `pyproject.toml` file for Poetry
++ `requirements.txt` for Pip
+
 The approach to modelling is founded on the following principles:
 
 + All input data and assumption are kept external to the model either in files such as (CSV, YAML) or databases. In this example data is stored in the Import_data folder as CSV files.
@@ -82,8 +88,9 @@ class forecast_base:
 
 # Class exposing the results of the function on the data attribute
 class acute_forecast(forecast_base):
-    def __init__(self) -> None:
-        self.data = self._forecast_calculation(
+    @property
+    def data(self) -> Delayed:
+        return self._forecast_calculation(
             historic_activity=acute_data().data,
             population_growth=population_data().data,
             # Prefix dask key name with fa_ to avoid clashing with name of this class

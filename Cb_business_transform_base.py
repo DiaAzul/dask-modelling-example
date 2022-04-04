@@ -22,14 +22,18 @@ class business_transform_base:
 
         Returns:
             pd.DataFrame: Revised and original acute hospital and community service activity.
-        """    
+        """
 
         # Rename activity columns in acute and community tables to acute_activity and community_activity;
         # Drop the domain columns which contain community and activity identifiers;
         # Merge two tables into a single table with acute_activity and community_activity columns.
 
-        af = acute_forecast.rename(columns={"activity": "acute_activity"}).drop(columns=["domain"])
-        cf = community_forecast.rename(columns={"activity": "community_activity"}).drop(columns=["domain"])
+        af = acute_forecast.rename(columns={"activity": "acute_activity"}).drop(
+            columns=["domain"]
+        )
+        cf = community_forecast.rename(columns={"activity": "community_activity"}).drop(
+            columns=["domain"]
+        )
 
         MERGE_COLUMNS = [
             "hospital_name",
@@ -50,17 +54,25 @@ class business_transform_base:
 
         # Calculate new activity after redistributing activity between acute and community hospitals.
         # percentage_shift_to_community from year 2025 onwards.
-        df["date"] = pd.to_datetime(df["year"].apply(lambda x: f"{x}-01-01"), infer_datetime_format=True)  # type:ignore
+        df["date"] = pd.to_datetime(
+            df["year"].apply(lambda x: f"{x}-01-01"), infer_datetime_format=True
+        )  # type:ignore
         df["include"] = (df["date"] >= "2025-01-01").astype("int")
         df["activity_shift_to_community"] = (
-            df["acute_activity"] 
-            * df["percentage_shift_to_community"]
-            * df["include"]
+            df["acute_activity"] * df["percentage_shift_to_community"] * df["include"]
         )
-        df["revised_acute_activity"] = df["acute_activity"] - df["activity_shift_to_community"]
-        df["revised_community_activity"] = df["community_activity"] + df["activity_shift_to_community"]
+        df["revised_acute_activity"] = (
+            df["acute_activity"] - df["activity_shift_to_community"]
+        )
+        df["revised_community_activity"] = (
+            df["community_activity"] + df["activity_shift_to_community"]
+        )
 
         # Remove intermediate columns to tidy up returned table.
-        df.drop(columns=["percentage_shift_to_community", "date", "include"], inplace=True, axis=1)
+        df.drop(
+            columns=["percentage_shift_to_community", "date", "include"],
+            inplace=True,
+            axis=1,
+        )
 
         return df
