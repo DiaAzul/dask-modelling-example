@@ -1,7 +1,12 @@
+"""Library function to forecast activity given historic activity and demographic growth.
+
+The base year for historic activity is fixed to the year 2020.
+"""
 import pandas as pd
 
 
 class forecast_base:
+    """Library of functions for forecasting activity based upon demographic growth."""
     def _forecast_calculation(
         self, historic_activity: pd.DataFrame, population_growth: pd.DataFrame
     ) -> pd.DataFrame:

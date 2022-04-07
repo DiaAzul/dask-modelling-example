@@ -36,11 +36,14 @@ Example output from the case study example is included in `Healthcare system mod
 
 ## Code examples
 
-The dependencies for this project are included in:
+The dependencies for this project are managed using Poetry and pyproject.toml. To install dependencies:
 
-+ `environment.yml` file for Conda
-+ `pyproject.toml` file for Poetry
-+ `requirements.txt` for Pip
+Install Poetry `pip install poetry`
+
+install dependencies `poetry install`
+
+The `requirements.txt` for pip and `environment.yml` for conda files were auto-generated but have not been tested.
+
 
 The approach to modelling is founded on the following principles:
 
@@ -62,9 +65,12 @@ The approach to modelling is founded on the following principles:
 
 Dask delayed function are implemented in the code as shown in the example below.
 
-+ The implementation of the function is implemented within a base class as a delayed method. Implementing the code in a class allows that class to be inherited into multiple other classes which define the execution graph and support the DRY (Don't Repeat Yourself) principle. An example can be seen in the data import where a loader is defined as the base class and inherited by multiple implementations to load each individual input data file. The base class in the code snippet below is forecast\_base and the private method implementing the function is \_forecast\_calculation.
++ The implementation of the function is implemented within a base class as an imperative method. Implementing the code in a class allows that class to be inherited into multiple other classes which define the execution graph and support the DRY (Don't Repeat Yourself) principle. Implementing the method as an
+imperative function facilitates the creation of automatic tests (note that applying the `@delayed` decorator to these functions would make testing more complex).
+An example can be seen in the data import where a loader is defined as the base class and inherited by multiple implementations to load each individual input data file. The base class in the code snippet below is forecast\_base and the private method implementing the function is \_forecast\_calculation.
 
-+ Functions are added to the execution graph by inheriting the base class into the implementing class and calling the implementing function as show in the acute\_forecast class below.
++ Functions are added to the execution graph by inheriting the base class into the implementing class and wrapping it with dask `delayed` function to convert
+it into a delayed function.
 
 + The parameters of the function are the outputs of previous delayed functions. This creates the links in the execution graph.
 
@@ -75,7 +81,6 @@ Dask delayed function are implemented in the code as shown in the example below.
 ```python
 # Implementation of the function applied to the inputs
 class forecast_base:
-    @delayed
     def _forecast_calculation(
         self,
         historic_activity: pd.DataFrame,
@@ -90,7 +95,7 @@ class forecast_base:
 class acute_forecast(forecast_base):
     @property
     def data(self) -> Delayed:
-        return self._forecast_calculation(
+        return delayed(self._forecast_calculation)(
             historic_activity=acute_data().data,
             population_growth=population_data().data,
             # Prefix dask key name with fa_ to avoid clashing with name of this class

@@ -1,9 +1,13 @@
+"""Forecast the impact of business transformation on baseline activity for 
+acute hospitals and community services across different service lines.
+"""
+
 from dask import delayed
 from dask.delayed import Delayed
 
-from A_data_import import assumptions_data
-from B_forecast_activity import acute_forecast, community_forecast
-from Cb_business_transform_base import business_transform_base
+from .A_data_import import assumptions_data
+from .B_forecast_activity import acute_forecast, community_forecast
+from .Cb_business_transform_base import business_transform_base
 
 
 class business_transform(business_transform_base):

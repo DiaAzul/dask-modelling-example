@@ -1,7 +1,14 @@
+"""Library functions to lazily load data into delayed pandas DataFrames.
+
++ delayed_load_data - Reads a csv file without processing data.
++ delated_load_na0 - Reads a csv file replacing na with 0.
++ delayed_load_na_blank - Reads a csv file replacing na with empty string.
+"""
 import os
 import pandas as pd
+from unipath import Path
 
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT_DIR = str(os.path.abspath(Path(__file__).parent.parent))
 DATA_DIR = ROOT_DIR + "/Import_data/"
 
 

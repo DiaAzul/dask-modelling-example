@@ -1,9 +1,3 @@
-from dask import delayed
-from dask.base import tokenize
-from dask.delayed import Delayed
-
-from Ab_data_loader import loader
-
 """
 Import the following files from the import folder.
 
@@ -12,6 +6,10 @@ Import the following files from the import folder.
 + Acute Hospital activity
 + Community activity
 """
+from dask import delayed
+from dask.delayed import Delayed
+
+from dask_modelling_example.Ab_data_loader import loader
 
 
 class assumptions_data(loader):
@@ -27,8 +25,7 @@ class assumptions_data(loader):
     def data(self) -> Delayed:
         """Assumptions."""
         return delayed(self.delayed_load_data)(
-            file_name="assumptions.csv",
-            dask_key_name="Assumptions"
+            file_name="assumptions.csv", dask_key_name="Assumptions"
         )
 
 

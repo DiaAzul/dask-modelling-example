@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dask-modelling-example"
-version = "0.1.0"
+version = "1.0.0"
 description = "Healthcare business modelling using DASK"
 authors = ["David Plummer <28156158+DiaAzul@users.noreply.github.com>"]
 license = "Apache-2"
@@ -13,10 +13,51 @@ notebook = "^6.4.10"
 pandas = "^1.4.1"
 plotly = "^5.6.0"
 graphviz = "^0.19.1"
+Unipath = "^1.1"
 
 [tool.poetry.dev-dependencies]
 black = "^22.3.0"
+pytest = "^7.1.1"
+flake8 = "^4.0.1"
+isort = "^5.10.1"
+interrogate = "^1.5.0"
+coverage = "^6.3.2"
+pandera = "^0.10.1"
+poetry2conda = "^0.3.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+
+[tool.isort]
+profile = "hug"
+src_paths = ["isort", "test"]
+
+[tool.interrogate]
+ignore-init-method = true
+ignore-init-module = false
+ignore-magic = false
+ignore-semiprivate = false
+ignore-private = false
+ignore-property-decorators = false
+ignore-module = false
+ignore-nested-functions = false
+ignore-nested-classes = true
+ignore-setters = false
+fail-under = 95
+exclude = ["setup.py", "docs", "build"]
+ignore-regex = ["^get$", "^mock_.*", ".*BaseClass.*"]
+# possible values: 0 (minimal output), 1 (-v), 2 (-vv)
+verbose = 2
+quiet = false
+whitelist-regex = []
+color = true
+omit-covered-files = false
+generate-badge = "./assets"
+badge-format = "svg"
+
+[tool.poetry2conda]
+name = "healthcare-model"

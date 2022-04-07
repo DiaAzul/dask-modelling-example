@@ -1,8 +1,12 @@
+"""Forecasts baseline activity using historic activity and demographic growth for
+acute hospitals and community services.
+"""
+
 from dask import delayed
 from dask.delayed import Delayed
 
-from A_data_import import acute_data, community_data, population_data
-from Bb_forecast_base import forecast_base
+from .A_data_import import acute_data, community_data, population_data
+from .Bb_forecast_base import forecast_base
 
 
 class acute_forecast(forecast_base):

@@ -1,7 +1,9 @@
+"""Library function to apply business transformation rules to baseline activity."""
 import pandas as pd
 
 
 class business_transform_base:
+    """Library functions to apply business transformation rules to baseline activity."""
     def _business_transform(
         self,
         acute_forecast: pd.DataFrame,
