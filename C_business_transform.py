@@ -1,3 +1,4 @@
+from dask import delayed
 from dask.delayed import Delayed
 
 from A_data_import import assumptions_data
@@ -12,7 +13,7 @@ class business_transform(business_transform_base):
     @property
     def data(self) -> Delayed:
         """Acute hospital and community activity."""
-        return self._business_transform(
+        return delayed(self._business_transform)(
             acute_forecast=acute_forecast().data,
             community_forecast=community_forecast().data,
             assumptions_data=assumptions_data().data,

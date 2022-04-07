@@ -1,3 +1,5 @@
+from dask import delayed
+from dask.base import tokenize
 from dask.delayed import Delayed
 
 from Ab_data_loader import loader
@@ -24,9 +26,9 @@ class assumptions_data(loader):
     @property
     def data(self) -> Delayed:
         """Assumptions."""
-        return self.delayed_load_data(
+        return delayed(self.delayed_load_data)(
             file_name="assumptions.csv",
-            dask_key_name="Assumptions",
+            dask_key_name="Assumptions"
         )
 
 
@@ -44,7 +46,7 @@ class population_data(loader):
     @property
     def data(self) -> Delayed:
         """Population growth."""
-        return self.delayed_load_data_na0(
+        return delayed(self.delayed_load_data_na0)(
             file_name="population_growth.csv",
             dask_key_name="Population_growth_data",
         )
@@ -70,7 +72,7 @@ class acute_data(loader):
     @property
     def data(self) -> Delayed:
         """Acute hospital activity."""
-        return self.delayed_load_data_na0(
+        return delayed(self.delayed_load_data_na0)(
             file_name="acute_hospital_activity.csv",
             dask_key_name="Acute_hospital_data",
         )
@@ -96,7 +98,7 @@ class community_data(loader):
     @property
     def data(self) -> Delayed:
         """Community activity."""
-        return self.delayed_load_data_na0(
+        return delayed(self.delayed_load_data_na0)(
             file_name="community_activity.csv",
             dask_key_name="Community_data",
         )

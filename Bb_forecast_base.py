@@ -1,9 +1,7 @@
 import pandas as pd
-from dask import delayed
 
 
 class forecast_base:
-    @delayed
     def _forecast_calculation(
         self, historic_activity: pd.DataFrame, population_growth: pd.DataFrame
     ) -> pd.DataFrame:

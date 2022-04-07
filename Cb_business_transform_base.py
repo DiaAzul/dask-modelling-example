@@ -1,9 +1,7 @@
 import pandas as pd
-from dask import delayed
 
 
 class business_transform_base:
-    @delayed
     def _business_transform(
         self,
         acute_forecast: pd.DataFrame,

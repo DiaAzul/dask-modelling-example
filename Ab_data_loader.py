@@ -1,6 +1,5 @@
 import os
 import pandas as pd
-from dask import delayed
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = ROOT_DIR + "/Import_data/"
@@ -9,7 +8,6 @@ DATA_DIR = ROOT_DIR + "/Import_data/"
 class loader:
     """Load data from CSV files using a Dask delayed function."""
 
-    @delayed
     def delayed_load_data(self, file_name: str) -> pd.DataFrame:
         """Delayed function to load a CSV file into a Pandas DataFrame from the defined data directory.
 
@@ -21,7 +19,6 @@ class loader:
         """
         return pd.read_csv(DATA_DIR + file_name)
 
-    @delayed
     def delayed_load_data_na0(self, file_name: str) -> pd.DataFrame:
         """Delayed function to load a CSV file into a Pandas DataFrame from the defined data directory
         replacing missing data with zero.
@@ -34,7 +31,6 @@ class loader:
         """
         return pd.read_csv(DATA_DIR + file_name).fillna(0)
 
-    @delayed
     def delayed_load_data_na_blank(self, file_name: str) -> pd.DataFrame:
         """Delayed function to load a CSV file into a Pandas DataFrame from the defined data directory
         replacing missing data with an empty string.
