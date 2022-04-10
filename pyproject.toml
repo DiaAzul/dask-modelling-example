@@ -7,11 +7,11 @@ license = "Apache-2"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-ipykernel = "^6.9.2"
-dask = "^2022.3.0"
+ipykernel = "^6.12.1"
+dask = "^2022.4.0"
 notebook = "^6.4.10"
-pandas = "^1.4.1"
-plotly = "^5.6.0"
+pandas = "^1.4.2"
+plotly = "^5.7.0"
 graphviz = "^0.19.1"
 Unipath = "^1.1"
 
@@ -61,3 +61,11 @@ badge-format = "svg"
 
 [tool.poetry2conda]
 name = "healthcare-model"
+
+
+[tool.poetry2conda.dependencies]
+ipykernel = { channel = "conda-forge" }
+dask = { channel = "conda-forge" }
+notebook = { channel = "conda-forge" }
+graphviz = { channel = "pip" }
+Unipath = { channel = "pip" }
